@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .managers import CustomUserManager
+from .utils import watermark_with_transparency
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -33,3 +34,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             return f'{self.email}'
         else:
             return f'{self.first_name} {self.last_name}'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.profile_picture:
+            watermarked_picture = watermark_with_transparency(self.profile_picture, position=(0, 0))
+            if watermarked_picture:
+                self.profile_picture.delete()
+                self.profile_picture = watermarked_picture
+
+            return super().save(*args, **kwargs)
