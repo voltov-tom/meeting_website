@@ -1,12 +1,19 @@
+from rest_framework.fields import CurrentUserDefault
 from rest_framework.serializers import ModelSerializer
 
-from userprofile.models import CustomUser
+from userprofile.models import CustomUser, Sympathy
 
 
 class UserSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('first_name', 'last_name', 'email', 'gender', 'profile_picture',)
+
+
+class UserLikesSerializer(ModelSerializer):
+    class Meta:
+        model = Sympathy
+        fields = ('user', 'like')
 
 
 class RegistrationSerializer(ModelSerializer):

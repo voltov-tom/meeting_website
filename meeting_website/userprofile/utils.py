@@ -4,6 +4,7 @@ import requests
 
 from io import BytesIO
 from PIL import Image
+from django.core.mail import send_mail, send_mass_mail
 
 from meeting_website.settings import MEDIA_ROOT
 
@@ -33,3 +34,17 @@ def resize_image(img, width):
     ratio = (width / float(img.size[0]))
     height = int((float(img.size[1]) * float(ratio)))
     return img.resize((width, height), Image.ANTIALIAS)
+
+
+def send_notification(user_1, user_2):
+    message_1 = (
+        'You have mutual sympathy!',
+        f'You liked {user_1.first_name}! Member e-mail: {user_1.email}.',
+        'r00t.petrov@yandex.ru', [user_2.email]
+    )
+    message_2 = (
+        'You have mutual sympathy!',
+        f'You liked {user_2.first_name}! Member e-mail: {user_2.email}.',
+        'r00t.petrov@yandex.ru', [user_1.email]
+    )
+    send_mass_mail((message_1, message_2),)

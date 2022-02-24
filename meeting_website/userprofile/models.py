@@ -44,3 +44,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                 self.profile_picture = watermarked_picture
 
             return super().save(*args, **kwargs)
+
+
+class Sympathy(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sympathy')
+    like = models.ManyToManyField(CustomUser, related_name='liked')
+
+    class Meta:
+        verbose_name_plural = 'Sympathies'
+
+    def __str__(self):
+        return f'{self.user} likes:{self.like.count()}'

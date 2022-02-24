@@ -148,3 +148,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'r00t.petrov@yandex.ru'
+EMAIL_HOST_PASSWORD = 'VeryStrongPassword321'
+EMAIL_CONFIRMATION_COOLDOWN = 60
