@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.gis.db.models import PointField
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -23,6 +24,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     gender = models.IntegerField(choices=GENDER_CHOICES, default=0)
     profile_picture = models.ImageField()
+
+    location = PointField(srid=4326, geography=True, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

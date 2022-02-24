@@ -19,7 +19,7 @@ class CustomUserAdmin(UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('first_name', 'last_name', 'email', 'password1', 'password2', 'is_staff', 'is_active', 'gender',
-                       'profile_picture',)}
+                       'profile_picture', 'location',)}
          ),
     )
     search_fields = ('email',)

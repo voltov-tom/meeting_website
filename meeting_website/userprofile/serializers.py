@@ -1,4 +1,4 @@
-from rest_framework.fields import CurrentUserDefault
+from django.contrib.gis.geos import Point
 from rest_framework.serializers import ModelSerializer
 
 from userprofile.models import CustomUser, Sympathy
@@ -19,7 +19,7 @@ class UserLikesSerializer(ModelSerializer):
 class RegistrationSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'email', 'password', 'gender', 'profile_picture',)
+        fields = ('first_name', 'last_name', 'email', 'password', 'gender', 'profile_picture', 'location',)
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -30,5 +30,6 @@ class RegistrationSerializer(ModelSerializer):
             validated_data['password'],
             validated_data['gender'],
             validated_data['profile_picture'],
+            Point(tuple(float(i) for i in validated_data['location'].split(','))),  # many moves from str to PointField
         )
         return user

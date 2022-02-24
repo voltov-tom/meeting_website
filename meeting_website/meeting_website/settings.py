@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'meeting_website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'meeting_website_db',
         'USER': 'db_user',
         'PASSWORD': 'password',
@@ -155,3 +155,7 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'r00t.petrov@yandex.ru'
 EMAIL_HOST_PASSWORD = 'VeryStrongPassword321'
 EMAIL_CONFIRMATION_COOLDOWN = 60
+
+# windows settings
+GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal304.dll'
+GEOS_LIBRARY_PATH = r'C:\OSGeo4W\bin\geos_c.dll'

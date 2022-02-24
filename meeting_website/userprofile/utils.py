@@ -4,7 +4,7 @@ import requests
 
 from io import BytesIO
 from PIL import Image
-from django.core.mail import send_mail, send_mass_mail
+from django.core.mail import send_mass_mail
 
 from meeting_website.settings import MEDIA_ROOT
 

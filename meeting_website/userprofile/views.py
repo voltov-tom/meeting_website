@@ -1,4 +1,3 @@
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -6,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
+from userprofile.filters import CustomFilter
 from userprofile.models import CustomUser, Sympathy
 from userprofile.serializers import RegistrationSerializer, UserSerializer, UserLikesSerializer
 from userprofile.utils import send_notification
@@ -46,12 +46,12 @@ class UserLikesView(APIView):
 
 
 class UserViewSet(ModelViewSet):
-    serializer_class = UserSerializer
-    queryset = CustomUser.objects.all()
+    http_method_names = ('get', 'options',)
     permission_classes = (IsAuthenticated,)
-    filter_backends = (DjangoFilterBackend,)
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    filter_backends = (CustomFilter,)
     filter_fields = ('gender', 'first_name', 'last_name',)
-    http_method_names = ['get', 'options']
 
 
 class Logout(APIView):
