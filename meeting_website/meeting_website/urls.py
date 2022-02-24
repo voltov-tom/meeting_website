@@ -9,7 +9,7 @@ from userprofile.views import CreateUserView, UserViewSet, Logout, UserLikesView
 
 router = SimpleRouter()
 
-router.register(r'api/clients', UserViewSet)
+router.register(r'api/list', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -45,9 +46,12 @@ class UserLikesView(APIView):
 
 
 class UserViewSet(ModelViewSet):
-    permission_classes = (IsAuthenticated,)
-    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
+    queryset = CustomUser.objects.all()
+    permission_classes = (IsAuthenticated,)
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('gender', 'first_name', 'last_name',)
+    http_method_names = ['get', 'options']
 
 
 class Logout(APIView):
