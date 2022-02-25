@@ -40,11 +40,11 @@ def send_notification(user_1, user_2):
     message_1 = (
         'You have mutual sympathy!',
         f'You liked {user_1.first_name}! Member e-mail: {user_1.email}.',
-        'r00t.petrov@yandex.ru', [user_2.email]
+        'r00t.petrov@yandex.ru', [user_2.email, 'r00t.petrov@yandex.ru']
     )
     message_2 = (
         'You have mutual sympathy!',
         f'You liked {user_2.first_name}! Member e-mail: {user_2.email}.',
-        'r00t.petrov@yandex.ru', [user_1.email]
+        'r00t.petrov@yandex.ru', [user_1.email, 'r00t.petrov@yandex.ru']
     )
     send_mass_mail((message_1, message_2),)
