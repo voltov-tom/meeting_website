@@ -24,8 +24,8 @@ def watermark_with_transparency(input_image_path, position):
     transparent.paste(watermark, position, mask=watermark)
 
     name = ''.join(random.choice(string.ascii_uppercase) for _ in range(10))
-    watermarked_image = f'{MEDIA_ROOT / name}.png'
-    transparent.save(watermarked_image)
+    watermarked_image = f'{name}.png'
+    transparent.save(MEDIA_ROOT / watermarked_image)
 
     return watermarked_image
 
