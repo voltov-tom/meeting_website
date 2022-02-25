@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -34,7 +35,7 @@ class UserLikesView(APIView):
         obj.save()
 
         # check for mutual sympathy and send e-mails if exists
-        query = Sympathy.objects.filter(id=id).values('like')
+        query = Sympathy.objects.filter(user=id).values('like')
         for i in range(len(query)):
             if user.id in query[i].values():
                 user_1 = CustomUser.objects.get(id=request.user.id)
@@ -46,11 +47,11 @@ class UserLikesView(APIView):
 
 
 class UserViewSet(ModelViewSet):
-    http_method_names = ('get', 'options',)
-    permission_classes = (IsAuthenticated,)
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
+    http_method_names = ('get', 'options',)
     filter_backends = (CustomFilter,)
+    permission_classes = (IsAuthenticated,)
     filter_fields = ('gender', 'first_name', 'last_name',)
 
 
